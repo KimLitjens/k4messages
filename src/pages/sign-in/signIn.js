@@ -1,5 +1,12 @@
+import React from "react";
+import { Form } from '../../components'
+
+
 export default function SignIn() {
+
     return (
-        <h1>Sign In:</h1>
+        // Login Form
+        <Form type="logIn" />
+
     );
 }
