@@ -6,14 +6,22 @@ import MainPage from './pages/mainpage/mainpage'
 import SignIn from './pages/sign-in/signIn'
 import SignUp from './pages/sign-up/signUp'
 
+import PrivateRoute from './containers/private-route'
+import { ProvideAuth } from './utils/hooks/useAuth'
+
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path={ROUTES.MAINPAGE} element={<MainPage />} />
-        <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
-        <Route path={ROUTES.SIGN_IN} element={<SignIn />} />
-      </Routes>
+      <ProvideAuth>
+        <Routes>
+          <Route path={ROUTES.MAINPAGE} element={
+            <PrivateRoute>
+              <MainPage />
+            </PrivateRoute>} />
+          <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
+          <Route path={ROUTES.SIGN_IN} element={<SignIn />} />
+        </Routes>
+      </ProvideAuth>
     </Router>
   );
 }
