@@ -1,1 +1,6 @@
+export { default as ChannelsBar } from './channelsBar/channelsBar'
 export { default as Form } from './form/form'
+export { default as Header } from './header/header'
+export { default as MainPart } from './mainPart/mainPart'
+export { default as SecondSidebar } from './secondSidebar/secondSidebar'
+export { default as SignOutButton } from './signOutButton/signOutButton'

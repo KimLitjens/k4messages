@@ -1,6 +1,9 @@
-import ChannelsBar from '../../components/channelsBar/channelsBar'
-import SecondSidebar from '../../components/secondSidebar/secondSidebar'
-import MainPart from '../../components/mainPart/mainPart'
+import {
+    ChannelsBar,
+    MainPart,
+    SecondSidebar
+} from '../../components'
+
 
 export default function MainPage() {
     return (
