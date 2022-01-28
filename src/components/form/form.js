@@ -27,6 +27,7 @@ export default function Form({ type }) {
                         userId: user.uid,
                         username: data.username.toLowerCase(),
                         emailAddress: data.email.toLowerCase(),
+                        friends: [],
                         dateCreated: Date.now()
                     })
 
