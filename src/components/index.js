@@ -1,4 +1,5 @@
 export { default as ChannelsBar } from './channelsBar/channelsBar'
+export { default as ChatHeader } from './chat/chatHeader/chatHeader'
 export { default as Form } from './form/form'
 export { default as Friends } from './friends/friends'
 export { default as Header } from './header/header'

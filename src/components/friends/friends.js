@@ -49,7 +49,6 @@ export default function Friends() {
         <div>
             <h1>All the friends</h1>
             <div>
-                {console.log(friends)}
                 {friends.map(friend => <p key={friend}>{friend}</p>)}
             </div>
         </div>
