@@ -3,7 +3,7 @@ import { doc, getDoc } from 'firebase/firestore'
 
 import { db } from '../../firebase'
 import { useAuth } from '../../utils/hooks/useAuth'
-import { ChatHeader, ChatMessages, Header } from '../'
+import { ChatHeader, ChatMessages, ChatInput, Header } from '../'
 
 export default function MainPart() {
     const [chat, setChat] = useState([]);
@@ -43,7 +43,7 @@ export default function MainPart() {
                     chat={chat}
                     getTimeInHoursAndMinutes={getTimeInHoursAndMinutes}
                 />
-                <div className="border border-blue-500 w-11/12 h-20">input</div>
+                <ChatInput />
             </div>
         </div>
     );
