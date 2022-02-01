@@ -22,18 +22,32 @@ export default function MainPart() {
         }
     }
 
+    const getTimeInHoursAndMinutes = (milliseconds) => {
+        const currentDate = new Date(Date.now()).getDate()
+        const hours = new Date(milliseconds).getHours()
+        const minutes = new Date(milliseconds).getMinutes()
+        console.log(currentDate)
+        return (hours + ":" + minutes)
+    }
+
     useEffect(() => {
         getChat()
     }, [])
 
-    console.log("chat: ", chat)
     return (
         <div className="bg-yellow-500 w-full">
             <Header />
             <div className="grid justify-items-center gap-4">
                 <ChatHeader />
                 <div className="border border-red-500 w-11/12 h-96">
-                    <p>chat</p>
+                    {chat.messages !== undefined && chat.messages.map(message => <div >
+                        <div className="flex">
+                            <h2 className="mx-4">{message.senderName}</h2>
+                            <p>{getTimeInHoursAndMinutes(message.time)}</p>
+                        </div>
+                        <p>{message.msg}</p>
+                    </div>
+                    )}
                 </div>
                 <div className="border border-blue-500 w-11/12 h-20">input</div>
             </div>
