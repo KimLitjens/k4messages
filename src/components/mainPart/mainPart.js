@@ -23,7 +23,7 @@ export default function MainPart() {
     }
 
     const getTimeInHoursAndMinutes = (milliseconds) => {
-        const currentDate = new Date(Date.now()).getDate()
+        const currentDate = new Date(Date.now())
         const hours = new Date(milliseconds).getHours()
         const minutes = new Date(milliseconds).getMinutes()
         console.log(currentDate)
@@ -43,7 +43,11 @@ export default function MainPart() {
                     chat={chat}
                     getTimeInHoursAndMinutes={getTimeInHoursAndMinutes}
                 />
-                <ChatInput />
+                <ChatInput
+                    receiversUID={receiversUID}
+                    userUID={userUID}
+
+                />
             </div>
         </div>
     );
