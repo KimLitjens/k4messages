@@ -1,12 +1,16 @@
 import React from 'react';
 import { useForm } from 'react-hook-form'
-import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore'
 
 import { db } from '../../../firebase'
 
-export default function ChatInput({ receiversUID, userUID }) {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  // const onSubmit = data => console.log(data);
+export default function ChatInput({
+  getChat,
+  receiversUID,
+  userName,
+  userUID
+}) {
+  const { register, reset, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
     const messagesRef = doc(db, "users", userUID, "chats", receiversUID)
@@ -16,9 +20,11 @@ export default function ChatInput({ receiversUID, userUID }) {
         time: Date.now(),
         msg: data.message,
         senderUID: userUID,
-        senderName: "kimslim"
+        senderName: userName
       })
     })
+    reset()
+    getChat()
   }
 
   return (

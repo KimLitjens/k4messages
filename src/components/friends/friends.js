@@ -8,6 +8,7 @@ import { useAuth } from '../../utils/hooks/useAuth'
 export default function Friends() {
     const [friendsUID, setFriendsUID] = useState([]);
     const [friends, setFriends] = useState([]);
+    const [friendsLoaded, setFriendsLoaded] = useState(false);
     const userInfo = useAuth();
     const userUID = userInfo?.currentUser?.uid
 
@@ -18,8 +19,10 @@ export default function Friends() {
             const docRef = doc(db, "users", UIDFriend)
             const docSnap = await getDoc(docRef)
             if (docSnap.exists()) {
+                setFriendsLoaded(false)
                 allFriends.push(docSnap.data().username)
                 setFriends(allFriends)
+                setFriendsLoaded(true)
             } else {
                 console.log("No such document!")
             }
@@ -49,7 +52,13 @@ export default function Friends() {
         <div>
             <h1>All the friends</h1>
             <div>
-                {friends.map(friend => <p key={friend}>{friend}</p>)}
+                {!friendsLoaded ? <p>Loading...</p> : friends.map(friend => <div className="my-2">
+                    <button
+                        onClick={() => { console.log(friend) }}
+                        key={friend}>
+                        {friend}
+                    </button>
+                </div>)}
             </div>
         </div>
     );

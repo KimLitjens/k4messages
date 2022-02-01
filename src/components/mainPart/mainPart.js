@@ -10,6 +10,7 @@ export default function MainPart() {
     const receiversUID = "LJsCB5EBW3QWpc5zZIzkz1AU54m1"
     const userInfo = useAuth();
     const userUID = userInfo?.currentUser?.uid
+    const userName = userInfo?.currentUser?.displayName
 
     const getChat = async () => {
         const docRef = doc(db, "users", userUID, "chats", receiversUID)
@@ -26,7 +27,6 @@ export default function MainPart() {
         const currentDate = new Date(Date.now())
         const hours = new Date(milliseconds).getHours()
         const minutes = new Date(milliseconds).getMinutes()
-        console.log(currentDate)
         return (hours + ":" + minutes)
     }
 
@@ -46,7 +46,8 @@ export default function MainPart() {
                 <ChatInput
                     receiversUID={receiversUID}
                     userUID={userUID}
-
+                    getChat={getChat}
+                    userName={userName}
                 />
             </div>
         </div>
