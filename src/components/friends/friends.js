@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { doc, getDoc } from 'firebase/firestore'
 
 import { db } from '../../firebase'
 import { useAuth } from '../../utils/hooks/useAuth'
+import chatContext from '../../utils/context/chat'
 
 export default function Friends() {
     const [friendsUID, setFriendsUID] = useState([]);
@@ -11,6 +12,9 @@ export default function Friends() {
     const [friendsLoaded, setFriendsLoaded] = useState(false);
     const userInfo = useAuth();
     const userUID = userInfo?.currentUser?.uid
+
+    const { setReceiversUID } = useContext(chatContext);
+    const setCurrentChat = (userID) => setReceiversUID(userID)
 
     const getFriendsName = async () => {
         const allFriends = []
@@ -20,7 +24,7 @@ export default function Friends() {
             const docSnap = await getDoc(docRef)
             if (docSnap.exists()) {
                 setFriendsLoaded(false)
-                allFriends.push(docSnap.data().username)
+                allFriends.push(docSnap.data())
                 setFriends(allFriends)
                 setFriendsLoaded(true)
             } else {
@@ -54,9 +58,9 @@ export default function Friends() {
             <div>
                 {!friendsLoaded ? <p>Loading...</p> : friends.map(friend => <div className="my-2">
                     <button
-                        onClick={() => { console.log(friend) }}
-                        key={friend}>
-                        {friend}
+                        onClick={() => setCurrentChat(friend.userId)}
+                        key={friend.userId}>
+                        {friend.username}
                     </button>
                 </div>)}
             </div>

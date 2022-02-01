@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { doc, getDoc } from 'firebase/firestore'
 
 import { db } from '../../firebase'
 import { useAuth } from '../../utils/hooks/useAuth'
 import { ChatHeader, ChatMessages, ChatInput, Header } from '../'
+import chatContext from '../../utils/context/chat'
 
 export default function MainPart() {
     const [chat, setChat] = useState([]);
-    const receiversUID = "LJsCB5EBW3QWpc5zZIzkz1AU54m1"
+    const { receiversUID } = useContext(chatContext)
     const userInfo = useAuth();
     const userUID = userInfo?.currentUser?.uid
     const userName = userInfo?.currentUser?.displayName
@@ -15,7 +16,6 @@ export default function MainPart() {
     const getChat = async () => {
         const docRef = doc(db, "users", userUID, "chats", receiversUID)
         const docSnap = await getDoc(docRef)
-
         if (docSnap.exists()) {
             setChat(docSnap.data())
         } else {
@@ -31,8 +31,8 @@ export default function MainPart() {
     }
 
     useEffect(() => {
-        getChat()
-    }, [])
+        receiversUID && getChat()
+    }, [receiversUID])
 
     return (
         <div className="bg-yellow-500 w-full">
