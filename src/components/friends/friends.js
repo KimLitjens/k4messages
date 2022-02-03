@@ -13,8 +13,8 @@ export default function Friends() {
     const userInfo = useAuth();
     const userUID = userInfo?.currentUser?.uid
 
-    const { setReceiversUID } = useContext(chatContext);
-    const setCurrentChat = (userID) => setReceiversUID(userID)
+    const { setReceiver } = useContext(chatContext);
+    const setCurrentChat = (userID) => setReceiver(userID)
 
     const getFriendsName = async () => {
         const allFriends = []
@@ -51,14 +51,13 @@ export default function Friends() {
     useEffect(() => {
         friendsUID && getFriendsName()
     }, [friendsUID])
-
     return (
         <div>
             <h1>All the friends</h1>
             <div>
                 {!friendsLoaded ? <p>Loading...</p> : friends.map(friend => <div className="my-2">
                     <button
-                        onClick={() => setCurrentChat(friend.userId)}
+                        onClick={() => setCurrentChat(friend)}
                         key={friend.userId}>
                         {friend.username}
                     </button>

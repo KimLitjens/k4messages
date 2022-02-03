@@ -8,13 +8,13 @@ import chatContext from '../../utils/context/chat'
 
 export default function MainPart() {
     const [chat, setChat] = useState([]);
-    const { receiversUID } = useContext(chatContext)
+    const { receiver } = useContext(chatContext)
     const userInfo = useAuth();
     const userUID = userInfo?.currentUser?.uid
     const userName = userInfo?.currentUser?.displayName
 
     const getChat = async () => {
-        const docRef = doc(db, "users", userUID, "chats", receiversUID)
+        const docRef = doc(db, "users", userUID, "chats", receiver.userId)
         const docSnap = await getDoc(docRef)
         if (docSnap.exists()) {
             setChat(docSnap.data())
@@ -31,20 +31,23 @@ export default function MainPart() {
     }
 
     useEffect(() => {
-        receiversUID && getChat()
-    }, [receiversUID])
-
+        receiver && getChat()
+    }, [receiver])
+    console.log(receiver)
     return (
         <div className="bg-yellow-500 w-full">
             <Header />
             <div className="grid justify-items-center gap-4">
-                <ChatHeader />
+                <ChatHeader
+                    userName={userName}
+                    receiver={receiver}
+                />
                 <ChatMessages
                     chat={chat}
                     getTimeInHoursAndMinutes={getTimeInHoursAndMinutes}
                 />
                 <ChatInput
-                    receiversUID={receiversUID}
+                    receiver={receiver?.userId}
                     userUID={userUID}
                     getChat={getChat}
                     userName={userName}

@@ -6,14 +6,14 @@ import { db } from '../../../firebase'
 
 export default function ChatInput({
   getChat,
-  receiversUID,
+  receiver,
   userName,
   userUID
 }) {
   const { register, reset, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
-    const messagesRef = doc(db, "users", userUID, "chats", receiversUID)
+    const messagesRef = doc(db, "users", userUID, "chats", receiver.userId)
 
     await updateDoc(messagesRef, {
       messages: arrayUnion({

@@ -8,10 +8,10 @@ import {
 import chatContext from '../../utils/context/chat'
 
 export default function MainPage() {
-    const [receiversUID, setReceiversUID] = useState();
+    const [receiver, setReceiver] = useState();
 
     return (
-        <chatContext.Provider value={{ receiversUID, setReceiversUID }} >
+        <chatContext.Provider value={{ receiver, setReceiver }} >
             <div className="flex text-center">
                 <ChannelsBar />
                 <SecondSidebar />

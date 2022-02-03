@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function ChatHeader() {
-    return <div><h2>Debeer</h2></div>;
+export default function ChatHeader({ userName, receiver }) {
+    return <div><h2>{receiver ? receiver.username : userName}</h2></div>;
 }
