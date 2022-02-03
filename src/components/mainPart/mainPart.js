@@ -47,7 +47,7 @@ export default function MainPart() {
                     getTimeInHoursAndMinutes={getTimeInHoursAndMinutes}
                 />
                 <ChatInput
-                    receiver={receiver?.userId}
+                    receiver={receiver}
                     userUID={userUID}
                     getChat={getChat}
                     userName={userName}
