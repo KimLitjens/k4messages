@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 
 import {
+    collection,
     getAuth,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
@@ -37,6 +38,10 @@ export default function Form({ type }) {
                         emailAddress: data.email.toLowerCase(),
                         friends: [],
                         dateCreated: Date.now()
+                    })
+                    setDoc(doc(db, 'users', user.uid, 'chats', user.uid), {
+                        receiver: user.uid,
+                        messages: []
                     })
 
 
