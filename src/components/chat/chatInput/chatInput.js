@@ -14,8 +14,17 @@ export default function ChatInput({
 
   const onSubmit = async (data) => {
     const messagesRef = doc(db, "users", userUID, "chats", receiver.userId)
+    const messagesRefReceiver = doc(db, "users", receiver.userId, "chats", userUID)
 
     await updateDoc(messagesRef, {
+      messages: arrayUnion({
+        time: Date.now(),
+        msg: data.message,
+        senderUID: userUID,
+        senderName: userName
+      })
+    })
+    await updateDoc(messagesRefReceiver, {
       messages: arrayUnion({
         time: Date.now(),
         msg: data.message,
