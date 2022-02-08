@@ -39,7 +39,6 @@ export default function ChatInput({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className=" w-11/12 h-20" >
       <input placeholder="Bericht" {...register("message")} className="w-11/12 h-20" />
-      <input type="submit" />
     </form>
   )
 }
