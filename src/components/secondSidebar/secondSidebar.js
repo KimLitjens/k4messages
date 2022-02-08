@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { doc, getDoc, collection, getDocs, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
+import { doc, getDoc, collection, getDocs, updateDoc, arrayUnion, arrayRemove, setDoc } from 'firebase/firestore'
 
 import { Friends, FriendsSuggestions } from '../'
 
@@ -54,21 +54,31 @@ export default function SecondSidebar() {
     }
 
     //Add Friend 
-    const addFriend = async (user) => {
+    const addFriend = async (selectedUser) => {
         const friendsRef = doc(db, "users", userUID)
+        const chatRef = doc(db, "users", userUID, "chats", selectedUser.userId)
+        const docSnap = await getDoc(chatRef)
 
         await updateDoc(friendsRef, {
-            friends: arrayUnion(user.userId)
+            friends: arrayUnion(selectedUser.userId)
         })
+
+        if (!docSnap.exists()) {
+            await setDoc(chatRef, {
+                receiver: selectedUser.userId,
+                messages: []
+            })
+        }
+        setCurrentChat(selectedUser)
         getFriendsUID()
     }
 
     //Delete Friend
-    const deleteFriend = async (user) => {
+    const deleteFriend = async (friend) => {
         const friendsRef = doc(db, "users", userUID)
 
         await updateDoc(friendsRef, {
-            friends: arrayRemove(user.userId)
+            friends: arrayRemove(friend.userId)
         })
         getFriendsUID()
     }
