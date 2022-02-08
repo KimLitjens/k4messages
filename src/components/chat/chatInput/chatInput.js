@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form'
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore'
+import { doc, getDoc, updateDoc, setDoc, arrayUnion } from 'firebase/firestore'
 
 import { db } from '../../../firebase'
 
@@ -15,7 +15,9 @@ export default function ChatInput({
   const onSubmit = async (data) => {
     const messagesRef = doc(db, "users", userUID, "chats", receiver.userId)
     const messagesRefReceiver = doc(db, "users", receiver.userId, "chats", userUID)
+    const docSnap = await getDoc(messagesRefReceiver)
 
+    // add message to senders chat
     await updateDoc(messagesRef, {
       messages: arrayUnion({
         time: Date.now(),
@@ -24,14 +26,27 @@ export default function ChatInput({
         senderName: userName
       })
     })
-    await updateDoc(messagesRefReceiver, {
-      messages: arrayUnion({
-        time: Date.now(),
-        msg: data.message,
-        senderUID: userUID,
-        senderName: userName
+    // add message to receivers chat
+    if (docSnap.exists()) {
+      await updateDoc(messagesRefReceiver, {
+        messages: arrayUnion({
+          time: Date.now(),
+          msg: data.message,
+          senderUID: userUID,
+          senderName: userName
+        })
       })
-    })
+    } else {
+      await setDoc(messagesRefReceiver, {
+        receiver: userUID,
+        messages: arrayUnion({
+          time: Date.now(),
+          msg: data.message,
+          senderUID: userUID,
+          senderName: userName
+        })
+      })
+    }
     reset()
     getChat()
   }
