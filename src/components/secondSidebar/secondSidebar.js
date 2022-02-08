@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { doc, getDoc, collection, getDocs } from 'firebase/firestore'
+import { doc, getDoc, collection, getDocs, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
 
 import { Friends, FriendsSuggestions } from '../'
 
@@ -53,6 +53,25 @@ export default function SecondSidebar() {
         }
     }
 
+    //Add Friend 
+    const addFriend = async (user) => {
+        const friendsRef = doc(db, "users", userUID)
+
+        await updateDoc(friendsRef, {
+            friends: arrayUnion(user.userId)
+        })
+        getFriendsUID()
+    }
+
+    //Delete Friend
+    const deleteFriend = async (user) => {
+        const friendsRef = doc(db, "users", userUID)
+
+        await updateDoc(friendsRef, {
+            friends: arrayRemove(user.userId)
+        })
+        getFriendsUID()
+    }
 
     useEffect(() => {
         getFriendsUID()
@@ -64,15 +83,17 @@ export default function SecondSidebar() {
     }, [friendsUID, allUsers])
 
     return (
-        <div className="bg-yellow-500 h-screen w-52 border-x-2 border-rose-500">
+        <div className="bg-yellow-500 h-screen w-52 ">
             <div className="bg-yellow-600 h-12">Search</div>
             <Friends
                 friends={friends}
                 friendsLoaded={friendsLoaded}
                 setCurrentChat={setCurrentChat}
+                deleteFriend={deleteFriend}
             />
             <FriendsSuggestions
                 notFriends={notFriends}
+                addFriend={addFriend}
             />
         </div>
     );
