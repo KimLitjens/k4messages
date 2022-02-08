@@ -59,10 +59,11 @@ export default function SecondSidebar() {
         const chatRef = doc(db, "users", userUID, "chats", selectedUser.userId)
         const docSnap = await getDoc(chatRef)
 
+        //add selected user UID to friends
         await updateDoc(friendsRef, {
             friends: arrayUnion(selectedUser.userId)
         })
-
+        //add friend to chats if not excists yet
         if (!docSnap.exists()) {
             await setDoc(chatRef, {
                 receiver: selectedUser.userId,
