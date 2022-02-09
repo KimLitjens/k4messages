@@ -43,6 +43,7 @@ export default function MainPart() {
                     receiver={receiver}
                 />
                 <ChatMessages
+                    userUID={userUID}
                     chat={chat}
                     getTimeInHoursAndMinutes={getTimeInHoursAndMinutes}
                 />
