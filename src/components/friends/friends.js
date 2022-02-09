@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styles from './friends.styles'
+
 export default function Friends({ friends, friendsLoaded, deleteFriend, setCurrentChat }) {
 
     return (
@@ -7,7 +9,7 @@ export default function Friends({ friends, friendsLoaded, deleteFriend, setCurre
             <h1>Friends:</h1>
             <div>
                 {!friendsLoaded ? <p>Loading...</p> : friends.map(friend => <div
-                    className="m-2 flex justify-between"
+                    className={styles.FriendDiv}
                     key={friend.userId}
                 >
                     <button

@@ -15,7 +15,6 @@ import styles from './form.styles'
 import { firebaseApp, db } from '../../firebase'
 import * as ROUTES from '../../constants/routes'
 
-
 export default function Form({ type }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [errorMessage, setErrorMessage] = useState('');
@@ -24,6 +23,7 @@ export default function Form({ type }) {
 
     // What shows up depending on login or signup
     const formDetails = {
+        //Shows up by signUp
         signUp: async (data) => {
             await createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
@@ -50,6 +50,7 @@ export default function Form({ type }) {
                     console.log(error)
                 })
         },
+        //Shows up by Login
         logIn: async (data) => {
             await signInWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {

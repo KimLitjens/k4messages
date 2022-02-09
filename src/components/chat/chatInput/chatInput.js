@@ -1,8 +1,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form'
-import { doc, getDoc, updateDoc, setDoc, arrayUnion } from 'firebase/firestore'
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  setDoc,
+  arrayUnion
+} from 'firebase/firestore'
 
 import { db } from '../../../firebase'
+import styles from './chatInput.styles'
 
 export default function ChatInput({
   getChat,
@@ -52,8 +59,12 @@ export default function ChatInput({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className=" w-11/12 h-20" >
-      <input placeholder="Bericht" {...register("message")} className="w-11/12 h-20" />
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.Form} >
+      <input
+        placeholder="Bericht"
+        {...register("message")}
+        className={styles.Input}
+      />
     </form>
   )
 }

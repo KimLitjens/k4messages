@@ -1,16 +1,25 @@
 import React from 'react';
 
+import styles from './friendsSuggestions.styles'
+
 export default function FriendsSuggestions({ notFriends, addFriend }) {
 
     return (<div>
-        <h4 className="font-bold">Suggestions for you</h4>
-        {!notFriends ? <p>Loading...</p> :
-            notFriends.map(user => <div className="flex justify-between mx-2" key={user.userId}>
+        <h4 className={styles.H4}>
+            Suggestions for you
+        </h4>
+        {!notFriends ? <p>Loading...</p>
+            : notFriends.map(user => <div
+                className={styles.NotFriendsDiv}
+                key={user.userId}
+            >
                 <p>
                     {user.username}
                 </p>
                 <button onClick={() => addFriend(user)}>
-                    <p className="text-blue-700">Add</p>
+                    <p className={styles.ButtonText}>
+                        Add
+                    </p>
                 </button>
             </div>)}
     </div>);
