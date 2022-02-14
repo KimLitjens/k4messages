@@ -12,7 +12,7 @@ export default function ChatMessages({ chat, getTimeInHoursAndMinutes, userUID }
                     <h2 className={styles.H2}>
                         {message.senderName}
                     </h2>
-                    <p>
+                    <p className={styles.MessageDateTime}>
                         {getTimeInHoursAndMinutes(message.time)}
                     </p>
                     <div className={styles.TextDiv}>

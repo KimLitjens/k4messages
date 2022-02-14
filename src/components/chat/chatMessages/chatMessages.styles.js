@@ -11,6 +11,9 @@ const styles = {
     H2: [
         `mx4`
     ],
+    MessageDateTime: [
+        `font-light text-xs`
+    ],
     TextDiv: [
         `grid w-full`
     ],
