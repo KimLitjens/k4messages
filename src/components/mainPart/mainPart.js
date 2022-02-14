@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { doc, getDoc } from 'firebase/firestore'
+import moment from 'moment'
 
 import { db } from '../../firebase'
 import { useAuth } from '../../utils/hooks/useAuth'
@@ -25,9 +26,15 @@ export default function MainPart() {
 
     const getTimeInHoursAndMinutes = (milliseconds) => {
         const currentDate = new Date(Date.now())
-        const hours = new Date(milliseconds).getHours()
-        const minutes = new Date(milliseconds).getMinutes()
-        return (hours + ":" + minutes)
+        const dateYesterday = currentDate - 86400000
+
+        if (moment(currentDate).format("L") === moment(milliseconds).format("L")) {
+            return ("Today " + moment(currentDate).format("HH:MM"))
+        } else if (moment(dateYesterday).format("L") === moment(milliseconds).format("L")) {
+            return ("Yesterday " + moment(currentDate).format("HH:MM"))
+        } else {
+            return (moment(currentDate).format("DD-MM-YYYY"))
+        }
     }
 
     useEffect(() => {
