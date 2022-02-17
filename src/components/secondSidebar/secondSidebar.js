@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { doc, getDoc, collection, getDocs, updateDoc, arrayUnion, arrayRemove, setDoc } from 'firebase/firestore'
 
 import { Friends, FriendsSuggestions } from '../'
 
+import chatContext from '../../utils/context/chat'
 import { db } from '../../firebase'
 import { useAuth } from '../../utils/hooks/useAuth'
-import chatContext from '../../utils/context/chat'
+import styles from './secondSidebar.styles'
 
 export default function SecondSidebar() {
     const [friendsUID, setFriendsUID] = useState([]);
@@ -29,18 +30,6 @@ export default function SecondSidebar() {
         setAllUsers(allUsers)
     }
 
-    //Divide users in friends and no friends:
-    const divideUsersFriendNoFriend = async () => {
-        const allFriends = []
-        const noFriend = []
-        setFriendsLoaded(false)
-        await allUsers.map(user => friendsUID.includes(user.userId) ? allFriends.push(user) : noFriend.push(user))
-        setFriends(allFriends)
-        setNotFriends(noFriend)
-        setFriendsLoaded(true)
-
-    }
-
     // Get all the friendsUID from user:
     const getFriendsUID = async () => {
         const docRef = doc(db, "users", userUID)
@@ -51,6 +40,17 @@ export default function SecondSidebar() {
         } else {
             console.log("No such document!")
         }
+    }
+
+    //Divide users in friends and no friends:
+    const divideUsersFriendNoFriend = async () => {
+        const allFriends = []
+        const noFriend = []
+        setFriendsLoaded(false)
+        await allUsers.map(user => friendsUID.includes(user.userId) ? allFriends.push(user) : noFriend.push(user))
+        setFriends(allFriends)
+        setNotFriends(noFriend)
+        setFriendsLoaded(true)
     }
 
     //Add Friend 
@@ -94,8 +94,8 @@ export default function SecondSidebar() {
     }, [friendsUID, allUsers])
 
     return (
-        <div className="bg-yellow-500 h-screen w-52 ">
-            <div className="bg-yellow-600 h-12">Search</div>
+        <div className={styles.Area}>
+            <div className={styles.Search}>Search</div>
             <Friends
                 friends={friends}
                 friendsLoaded={friendsLoaded}

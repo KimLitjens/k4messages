@@ -3,6 +3,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import moment from 'moment'
 
 import { db } from '../../firebase'
+import styles from './mainPart.styles'
 import { useAuth } from '../../utils/hooks/useAuth'
 import { ChatHeader, ChatMessages, ChatInput, Header } from '../'
 import chatContext from '../../utils/context/chat'
@@ -42,9 +43,9 @@ export default function MainPart() {
     }, [receiver])
     console.log(receiver)
     return (
-        <div className="bg-yellow-500 w-full">
+        <div className={styles.Area}>
             <Header />
-            <div className="grid justify-items-center gap-4">
+            <div className={styles.MainDiv}>
                 <ChatHeader
                     userName={userName}
                     receiver={receiver}

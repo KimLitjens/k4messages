@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styles from './friendsSuggestions.styles'
 
 export default function FriendsSuggestions({ notFriends, addFriend }) {
@@ -13,7 +11,7 @@ export default function FriendsSuggestions({ notFriends, addFriend }) {
                 className={styles.NotFriendsDiv}
                 key={user.userId}
             >
-                <p>
+                <p className={styles.Name}>
                     {user.username}
                 </p>
                 <button onClick={() => addFriend(user)}>

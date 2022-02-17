@@ -1,6 +1,15 @@
 const styles = {
     FriendDiv: [
-        `m-2 flex justify-between`
+        `mx-4 my-2 flex justify-between`
+    ],
+    Title: [
+        `text-accent`
+    ],
+    NameButton: [
+        `text-seccondAccent text-2xl`
+    ],
+    RemoveButton: [
+        `text-accent text-xs`
     ]
 }
 

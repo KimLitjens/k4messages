@@ -1,6 +1,6 @@
 const styles = {
     ChatDiv: [
-        `overflow-auto border border-red-500 w-11/12 h-96`
+        `overflow-auto border border-accent w-11/12 h-96`
     ],
     MessageDiv: [
         `grid`
@@ -9,16 +9,16 @@ const styles = {
         `flex`
     ],
     H2: [
-        `mx4`
+        `mx-2 text-secondAccent`
     ],
     MessageDateTime: [
-        `font-light text-xs`
+        `font-light text-xs text-accent`
     ],
     TextDiv: [
-        `grid w-full`
+        `grid w-full text-secondAccent`
     ],
     TextP: ({ userUID, message }) => [
-        `mx-4 ${userUID === message.senderUID ? `justify-self-end` : `justify-self-start`} `
+        `mx-4 ${userUID === message.senderUID ? `justify-self-end ` : `justify-self-start `} `
     ]
 
 }

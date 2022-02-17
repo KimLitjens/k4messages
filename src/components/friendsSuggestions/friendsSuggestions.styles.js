@@ -1,12 +1,15 @@
 const styles = {
     H4: [
-        `font-bold`
+        `font-bold text-accent`
     ],
     NotFriendsDiv: [
-        `flex justify-between mx-2`
+        `flex justify-between mx-4 my-2`
+    ],
+    Name: [
+        `text-xl`
     ],
     ButtonText: [
-        `text-blue-700`
+        `text-accent text-xs`
     ]
 }
 

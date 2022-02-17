@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
+import styles from './header.styles'
 import { SignOutButton } from '../'
 import { useAuth } from '../../utils/hooks/useAuth'
 
@@ -18,9 +19,9 @@ export default function Header() {
         : 'Welcome';
 
     return (
-        <div className="bg-yellow-600 h-12 flex justify-between">
-            <h2 className="ml-4 flex self-center text-center">{welcomeMessage}</h2>
-            <h1 className="text-center text-3xl font-bold underline">K4 Messages</h1>
+        <div className={styles.Area}>
+            <h2 className={styles.H2}>{welcomeMessage}</h2>
+            <h1 className={styles.H1}>K4 Messages</h1>
             <SignOutButton />
         </div>
     );
