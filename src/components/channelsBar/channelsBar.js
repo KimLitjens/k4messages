@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc, collection, addDoc } from 'firebase/firestore'
 
 import { ChannelsIcon } from '../'
 import { db } from '../../firebase'
@@ -10,26 +10,25 @@ export default function ChannelsBar() {
     const userInfo = useAuth();
     const userUID = userInfo?.currentUser?.uid
 
-    const [channels, setChannels] = useState([])
+    const [followingChannels, setFollowingChannels] = useState([])
 
-    const getChannels = async () => {
+    const getChannelsFollowing = async () => {
         const docRef = doc(db, "users", userUID)
         const docSnap = await getDoc(docRef)
         if (docSnap.exists()) {
-            setChannels(docSnap.data().channels)
+            setFollowingChannels(docSnap.data().channels)
         } else {
             console.log("No such document")
         }
     }
 
     useEffect(() => {
-        userUID && getChannels()
+        userUID && getChannelsFollowing()
     }, [userUID])
 
-    console.log(channels)
     return (
         <div className={styles.Area}>
-            <ChannelsIcon channels={channels} />
+            <ChannelsIcon followingChannels={followingChannels} />
         </div>
     );
 }
